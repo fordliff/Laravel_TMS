@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use session;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -141,7 +142,35 @@ class usercontroller extends Controller
         return back()->with('delete_user','Record deleted successfully');
     }
 
-    //Logging out from the system
+
+
+
+    public function LogIn_user()
+    {
+        return view('Login');
+    }
+    //Logging into the system
+    public function LoginUser(Request $request)
+    {
+        $formfield = $request->validate([
+            'username'=>  ['required'],                
+                //'email'=>  ['required','email'],           
+                'password'=> 'required'               
+        ]);
+        
+        //Validate user
+        if(auth()->attempt($formfield))
+        {
+            $request->session()->regenerate();
+            $user = DB::table('users')-> where('email','=',$request->email)->first();
+            return redirect('/')->with('welcome', "You are now login!");
+        }
+            //validation is false the perform the action below
+            return back()->withErrors(['username'=>'Invalid username or password!'])->onlyInput('username');
+
+    }
+
+        //Logging out from the system
     public function Userlogout(Request $request)
     {
         auth()->logout();

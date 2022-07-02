@@ -6,12 +6,12 @@
 <head>
       <title>Sign In</title>
 </head>
-
+ 
      
-       <form method="post" action="{{route('signin.form')}}"  >      
+       <form method="post" action="{{route('save.user')}}"  >      
         @csrf
-    @if(Session::has('message'))
-           <span style="color:blue; font-size:14px;">{{Session::get('signin.form')}}</span>
+    @if(Session::has('save_user'))
+           <span style="color:blue; font-size:14px;">{{Session::get('save_user')}}</span>
        @endif
         <div   class="main1 row">  
           

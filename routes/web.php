@@ -47,9 +47,6 @@ Route::get('/', function () {
 //Get home page
 Route::get('/', function(){ return view('welcome'); })->name('Home.page');
 
-//Login form
-Route::get('/Login', function() {return view('Login'); })->name('Login.form');
-
 
 
 //SignIn form
@@ -87,6 +84,12 @@ Route::get('/view-status', [statuscontroller::class,'index'])->name('view.status
 //*****************
 //Get list of users
 Route::get('/users-list', [usercontroller::class,'index'])->name('users.list');
+
+
+//Login form
+Route::get('/Login',  [usercontroller::class,'LogIn_user'])->name('Login.form');
+Route::post('/Login', [usercontroller::class,'LoginUser'])->name('signin.form');
+
 //Add user to the database
 Route::get('/SignIn', [usercontroller::class,'create'])->name('SignIn.form');
 Route::post('/SignIn', [usercontroller::class,'store'])->name('save.user');

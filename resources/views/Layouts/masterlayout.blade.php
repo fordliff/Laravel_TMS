@@ -261,9 +261,9 @@ body {
             <a  href="{{route('SignIn.form')}}" class="btn btn-primary">Sign In</a>
         </div>
         @auth
-        {{auth()->username()->name}}
+       
         <span class="uppercase menu-log">
-          Welcome
+          Welcome  {{auth()->username()->name}}
         </span>
         @else
         <span class="uppercase menu-log">
