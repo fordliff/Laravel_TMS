@@ -6,16 +6,18 @@
 <head>
       <title>Sign In</title>
 </head>
-  @if(Session::has('save_user'))
-            <span>{{Session::get('save_user')}}</span>
-        @endif
  
      
-       <form method="post" action="{{route('save_user')}}"  >      
-       
+       <form method="post" action="{{route('save.user')}}"  >      
+        @csrf
+    @if(Session::has('save_user'))
+           <span style="color:blue; font-size:14px;">{{Session::get('save_user')}}</span>
+       @endif
         <div   class="main2 row">  
+          
            <p class="sign" align="center">Sign In</p>  
-              
+       
+
             <div class="col-md-6">
                <input class="un " type="text" align="center" name="username" value="{{old('username')}}" placeholder="Username"> 
                @error('username')
@@ -34,29 +36,19 @@
               @error('email')
               <p style="color:red;">{{$message}}</p>
              @enderror
-              <input class="pass" type="password" align="center" name="password" value="" placeholder="Password">
-              @error('Password')
-              <p style="color:red;">{{$message}}</p>
-             @enderror
-              <input class="pass " type="password" align="center"  name="password_confirmation" value="" placeholder="Confirm Password">
-              @error('password_confirmation')
-              <p style="color:red;">{{$message}}</p>
-             @enderror
-            </div>
-            <br>
-            <div class="col-md-4">
-            </div>
-             <div class="col-md-2">
-            <input type="submit" name="submit" class="submit"  value="Submit"  >            
-           </div>  
-           <div class="col-md-4">
-           </div>
-          </div>    
-             
-             
-                                  
-                        
+             <input class="pass" type="password" name="password" value="" placeholder="Enter Password" ><br><br>
+            @error('password')
+            <p style="color:red;">{{$message}}</p>
+            @enderror
+            <input class="pass" type="password" name="password_confirmation" value="" placeholder="Enter Confirm Password" ><br><br>
+            @error('password_confirmation')
+            <p style="color:red;">{{$message}}</p>
+            @enderror
+            </div>         
+          <br>
+          <input type="submit" name="submit" class="submit"  value="Submit"  >            
         
+     </div>      
  </form>   
 
   

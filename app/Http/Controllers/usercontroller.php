@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\hash;
 
+
 class usercontroller extends Controller
 {
     /**
@@ -138,5 +139,16 @@ class usercontroller extends Controller
         DB::table('users')->where('id',$id)->delete(); 
 
         return back()->with('delete_user','Record deleted successfully');
+    }
+
+    //Logging out from the system
+    public function Userlogout(Request $request)
+    {
+        auth()->logout();
+        
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->with('message', 'You have been logout!');
     }
 }

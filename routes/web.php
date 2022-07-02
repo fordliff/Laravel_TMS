@@ -89,9 +89,13 @@ Route::get('/view-status', [statuscontroller::class,'index'])->name('view.status
 Route::get('/users-list', [usercontroller::class,'index'])->name('users.list');
 //Add user to the database
 Route::get('/SignIn', [usercontroller::class,'create'])->name('SignIn.form');
-Route::post('/SignIn', [usercontroller::class,'store'])->name('save_user');
+Route::post('/SignIn', [usercontroller::class,'store'])->name('save.user');
 //Edit User
 Route::get('/edit-user', [usercontroller::class,'edit'])->name('edit.user');
 Route::post('/update_user', [usercontroller::class,'update'])->name('update.user');
 //Delete user 
 Route::post('/delete-user', [usercontroller::class,'destroy'])->name('delete.user');
+
+
+//Logging off from the system
+Route::post('/Userlogout', [usercontroller::class,'Userlogout'])->name('logout');
