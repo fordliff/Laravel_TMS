@@ -7,6 +7,7 @@ use session;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\hash;
 
 
@@ -159,12 +160,13 @@ class usercontroller extends Controller
         ]);
         
         //Validate user
-        if(auth()->attempt($formfield))
-        {
-            $request->session()->regenerate();
-            $user = DB::table('users')-> where('email','=',$request->email)->first();
+       // if(auth()->attempt($formfield))
+        //{
+            //$request->session()->regenerate();
+            if (Auth::attempt(['username' => $request->username, 'password' =>  $request->password]))
+
             return redirect('/')->with('welcome', "You are now login!");
-        }
+       // }
             //validation is false the perform the action below
             return back()->withErrors(['username'=>'Invalid username or password!'])->onlyInput('username');
 
