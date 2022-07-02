@@ -7,9 +7,10 @@ use session;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\hash;
-
+use PhpParser\Node\Stmt\Echo_;
 
 class usercontroller extends Controller
 {
@@ -62,13 +63,17 @@ class usercontroller extends Controller
      //above are met.
      if($formfield)
      {
+        //encrypting the password
+        
+
         DB::table('users')->insert(       
             [
                 'username'=>  $request->username,
                 'fullname'=>  $request->fullname,                
                 'phoneNo'=>  $request->phoneNo,
                 'email'=>  $request->email,           
-                'password'=> hash::make($request->password),
+                'password'=> $request->password,
+                //'password'=> hash::make($request->password),
                 'created_at'=> $mydate
             ]           
         );        
@@ -159,16 +164,45 @@ class usercontroller extends Controller
                 'password'=> 'required'               
         ]);
         
+
+        if ( $formfield )
+        {
+            $existing = User::where('username',  $request->username)->get();
+
+            if( $existing[0]->password == $request->password)
+            {
+                $request->session()->regenerateToken();
+                return redirect('/')->with('welcome', "You are now login!");
+            }
+         
+            return redirect('/')->with('/login', "You are now login!");
+        
+            
+         //  $incoming= hash::make($request->password);
+          //  $existing = User::where('username',  $request->username)->get();
+
+         //   echo   $incoming; 
+          //  echo "  ";
+           // echo $existing[0]->password;
+          // $user = Auth::user();
+
+          // dd ($user);
+          
+           
+
+         //  $st= boolean password_verify(  $incoming ,  $existing[0]->password);
+        }
+
         //Validate user
        // if(auth()->attempt($formfield))
         //{
             //$request->session()->regenerate();
-            if (Auth::attempt(['username' => $request->username, 'password' =>  $request->password]))
+          //  if (Auth::attempt(['username' => $request->username, 'password' =>  $request->password]))
 
-            return redirect('/')->with('welcome', "You are now login!");
+           
        // }
             //validation is false the perform the action below
-            return back()->withErrors(['username'=>'Invalid username or password!'])->onlyInput('username');
+            //return back()->withErrors(['username'=>'Invalid username or password!'])->onlyInput('username');
 
     }
 

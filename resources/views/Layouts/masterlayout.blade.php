@@ -247,14 +247,15 @@ body {
     </header>
     <div class="navbar">
         <a  href="{{route('Home.page')}}" class="btn btn-primary">Home</a>       
-        <div class="dropdown">
+        <a  href="{{route('Task.page')}}" class="btn btn-primary">Task</a>   
+       <!-- <div class="dropdown">
           <button class="dropbtn">Task 
             <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-content">
             <a href="#">View Task List</a>
             <a href="#">Add New Task</a>
-          </div>
+          </div> -->
         </div> 
         <div class="menu-log">          
             <a  href="{{route('Login.form')}}" class="btn btn-primary">Log In</a>
